@@ -9,13 +9,12 @@ describe("End-to-end test", () => {
 
     const { stdout } = await execa("ts-node", [indexPath, filePath, "123"]);
 
-    const expected = `
-#N Block
+    const expected = `#N Block
 #C An extremely common 4-cell still life.
 #C www.conwaylife.com/wiki/index.php?title=Block
 x = 2, y = 2, rule = B3/S23
-2o$2o!
-`;
-    expect(stdout).toContain(expected);
+2o$2o!`
+    expect(stdout).toEqual(expected);
+    expect(stdout).toContain("#N Block");
   });
 });
