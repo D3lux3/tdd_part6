@@ -68,6 +68,6 @@ describe("Parser", () => {
 
   it("should throw error if pattern missing exclamation mark (end of pattern)", () => {
     const patternLine = "o$o";
-    expect(() => parsePatternLine(patternLine)).toThrowError("Missing exclamation mark at the end of pattern line");
+    expect(() => parsePatternLine(patternLine)).toThrowError("Invalid pattern line format");
   });
 });
