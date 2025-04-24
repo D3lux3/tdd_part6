@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseHeader, parsePatternLine } from "../src/parser";
+import { parseHeader, parsePatternLine, createEmptyPatternGrid } from "../src/parser";
 import { Cell } from "../src/types";
 
 describe("Parser", () => {
@@ -132,7 +132,7 @@ describe("Parser", () => {
     };
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
-  })
+  });
   it("should parse optimized 2x1 pattern", () => {
     const patternLine = "!";
     const expected = {
@@ -143,5 +143,15 @@ describe("Parser", () => {
     };
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
-  })
+  });
+
+  it("should generate 1x1 empty pattern space", () => {
+    const expected = {
+      0: {
+        0: Cell.DEAD,
+      },
+    };
+
+    expect(createEmptyPatternGrid(1, 1)).toEqual(expected);
+  });
 });
