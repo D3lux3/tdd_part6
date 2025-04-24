@@ -47,3 +47,7 @@ export const parsePatternLine = (line: string): Pattern => {
     return { ...acc, ...rowTags };
   }, {});
 };
+
+export const createEmptyPatternGrid = (width: number, height: number): Pattern => {
+  return { 0: { 0: Cell.DEAD } };
+};
