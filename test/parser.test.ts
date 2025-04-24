@@ -133,4 +133,15 @@ describe("Parser", () => {
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
   })
+  it("should parse optimized 2x1 pattern", () => {
+    const patternLine = "!";
+    const expected = {
+      0: {
+        0: Cell.DEAD,
+        1: Cell.DEAD,
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine);
+    expect(parsedPattern).toEqual(expected);
+  })
 });
