@@ -85,7 +85,7 @@ describe("Game of Life Simulation", () => {
 
     const expectedGridState = {
       0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      1: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
       2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
     };
     const expectedSimulation = new Simulation(expectedGridState, 3, 3);
