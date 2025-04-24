@@ -98,4 +98,26 @@ describe("Parser", () => {
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
   });
+  it("should parse glider pattern", () => {
+    const patternLine = "bob$2bo$3o!";
+    const expected = {
+      0: {
+        0: Cell.DEAD,
+        1: Cell.ALIVE,
+        2: Cell.DEAD,
+      },
+      1: {
+        0: Cell.DEAD,
+        1: Cell.DEAD,
+        2: Cell.ALIVE,
+      },
+      2: {
+        0: Cell.ALIVE,
+        1: Cell.ALIVE,
+        2: Cell.ALIVE,
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine);
+    expect(parsedPattern).toEqual(expected);
+  });
 });
