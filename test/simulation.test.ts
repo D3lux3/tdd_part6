@@ -11,17 +11,16 @@ Any dead cell with exactly three live neighbours becomes a live cell, as if by r
  */
 
 describe("Game of Life Simulation", () => {
+  it("should return neighbours count for alone cell", () => {
+    const grid = {
+      0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+    };
 
-    it("should return neighbours count for alone cell", () => {
-        const grid = {
-            0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-            1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
-            2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-          };
-
-        const result = new Simulation(grid, 3, 3).neighboursCount(1, 1);
-        expect(result).toEqual(0);
-    });
+    const result = new Simulation(grid, 3, 3).neighboursCount(1, 1);
+    expect(result).toEqual(0);
+  });
 
   it("kills a live cell with fewer than two live neighbours (underpopulation) (3x3)", () => {
     const grid = {
@@ -36,44 +35,62 @@ describe("Game of Life Simulation", () => {
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
     const expectedSimulation = new Simulation(expectedGridState, 3, 3);
-    
+
     const result = new Simulation(grid, 3, 3).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
   it("should keep a live cell with two live neighbours (3x3)", () => {
     const grid = {
-        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
-        1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      };
-  
-      const expectedGridState = {
-        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
-        1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      };
-      const expectedSimulation = new Simulation(expectedGridState, 3, 3);
-      
-      const result = new Simulation(grid, 3, 3).nextGeneration();
-      expect(result).toEqual(expectedSimulation);
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+    };
+
+    const expectedGridState = {
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+    };
+    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+
+    const result = new Simulation(grid, 3, 3).nextGeneration();
+    expect(result).toEqual(expectedSimulation);
   });
 
   it("should keep a live cell with three live neighbours (3x3)", () => {
     const grid = {
-        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      };
-  
-      const expectedGridState = {
-        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      };
-      const expectedSimulation = new Simulation(expectedGridState, 3, 3);
-      
-      const result = new Simulation(grid, 3, 3).nextGeneration();
-      expect(result).toEqual(expectedSimulation);
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+    };
+
+    const expectedGridState = {
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+    };
+    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+
+    const result = new Simulation(grid, 3, 3).nextGeneration();
+    expect(result).toEqual(expectedSimulation);
+  });
+
+  it("kills a live cell with more than three live neighbours (overpopulation) (3x3)", () => {
+    const grid = {
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+    };
+
+    const expectedGridState = {
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+    };
+    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+
+    const result = new Simulation(grid, 3, 3).nextGeneration();
+    expect(result).toEqual(expectedSimulation);
   });
 });
