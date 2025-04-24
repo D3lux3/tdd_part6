@@ -59,19 +59,25 @@ class Simulation {
   }
 
   nextGeneration(): Simulation {
-    const newGrid: Pattern = createEmptyPatternGrid(this.rows, this.cols);
+    const newGrid: Pattern = {};
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
         const newCellState = this.computeNextCellState(row, col);
-        newGrid[row]![col] = newCellState;
+
+        if (newCellState === Cell.ALIVE) {
+          if (!newGrid[row]) {
+            newGrid[row] = {};
+          }
+          newGrid[row]![col] = newCellState;
+        }
       }
     }
 
     return new Simulation(newGrid, this.rows, this.cols);
   }
-
-  getPatternShape(): { x: number; y: number } {
-    const aliveCells = Object.entries(this.grid).reduce((acc: [number, number][], [rowIndex, row]) => {
+  
+  private getGridShape(grid: Pattern): { x: number; y: number } {
+    const aliveCells = Object.entries(grid).reduce((acc: [number, number][], [rowIndex, row]) => {
       Object.entries(row).forEach(([colIndex, cell]) => {
         if (cell === Cell.ALIVE) {
           acc.push([Number(rowIndex), Number(colIndex)]);
@@ -86,6 +92,10 @@ class Simulation {
     const maxY = Math.max(...aliveCells.map(([, y]) => y));
 
     return { y: maxX - minX + 1, x: maxY - minY + 1 };
+  }
+
+  getPatternShape(): { x: number; y: number } {
+    return this.getGridShape(this.grid);
   }
 
   toString(): string {
