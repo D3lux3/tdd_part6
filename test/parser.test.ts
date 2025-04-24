@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseHeader } from "../src/parser";
+import { parseHeader, parsePatternLine } from "../src/parser";
 
 describe("Parser", () => {
   it("should parse 1x1 pattern size from header", () => {
@@ -26,5 +26,16 @@ describe("Parser", () => {
 
   it("should throw error if header if invalid", () => {
     expect(() => parseHeader("invalid header")).toThrowError("Invalid header format");
+  });
+
+  it("should parse 1x1 pattern ", () => {
+    const patternLine = "1o!";
+    const expected = {
+      1: {
+        1: "o",
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine);
+    expect(parsedPattern).toEqual(expected);
   });
 });
