@@ -13,5 +13,5 @@ export const parseHeader = (header: string) => {
 };
 
 export const parsePatternLine = (line: string) => {
-  return { 1: { 1: Cell.ALIVE } };
+  return { 0: { 0: Cell.ALIVE } };
 };

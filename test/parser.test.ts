@@ -32,11 +32,15 @@ describe("Parser", () => {
   it("should parse 1x1 pattern ", () => {
     const patternLine = "1o!";
     const expected = {
-      1: {
-        1: Cell.ALIVE,
+      0: {
+        0: Cell.ALIVE,
       },
     };
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
+  });
+
+  it("should parse 2x2 pattern ", () => {
+    const patternLine = "2o$2o!";
   });
 });
