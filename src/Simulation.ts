@@ -38,37 +38,32 @@ class Simulation {
       return count;
     }, 0);
   }
-  underPopulated(cell: Cell, neighbours: number): boolean {
-    return cell === Cell.ALIVE && neighbours < 2;
-  }
-  
-  shouldLive(cell: Cell, neighbours: number): boolean {
-    return cell === Cell.ALIVE && (neighbours === 2 || neighbours === 3);
+
+  computeNextCellState(x: number, y: number): Cell {
+    const cell = this.getCell(x, y);
+    const neighbours = this.neighboursCount(x, y);
+    if (cell === Cell.ALIVE) {
+      if (neighbours < 2) {
+        return Cell.DEAD;
+      }
+      if (neighbours > 3) {
+        return Cell.DEAD;
+      }
+      return Cell.ALIVE;
+    }
+
+    if (neighbours === 3) {
+      return Cell.ALIVE;
+    }
+    return Cell.DEAD;
   }
 
   nextGeneration(): Simulation {
     const newGrid: Pattern = createEmptyPatternGrid(this.rows, this.cols);
-
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
-        const cell = this.getCell(row, col);
-        const neighbours = this.neighboursCount(row, col);
-        
-        if (cell === Cell.ALIVE) {
-          if (this.underPopulated(cell, neighbours)) {
-            newGrid[row]![col]! = Cell.DEAD;
-          } else if (neighbours > 3) {
-            newGrid[row]![col]! = Cell.DEAD;
-          } else if (this.shouldLive(cell, neighbours)) {
-            newGrid[row]![col]! = Cell.ALIVE;
-          }
-        } else {
-          if (neighbours === 3) {
-            newGrid[row]![col]! = Cell.ALIVE;
-          } else {
-            newGrid[row]![col]! = Cell.DEAD;
-          }
-        }
+        const newCellState = this.computeNextCellState(row, col);
+        newGrid[row]![col] = newCellState;
       }
     }
 
