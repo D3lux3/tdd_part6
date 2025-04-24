@@ -114,4 +114,20 @@ describe("Game of Life Simulation", () => {
     const result = new Simulation(grid, 3, 3).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
+
+  it("should simulate block pattern properly", () => {
+    const grid = {
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+      1: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+    };
+
+    const expectedGridState = {
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+      1: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+    };
+    const expectedSimulation = new Simulation(expectedGridState, 2, 2);
+
+    const result = new Simulation(grid, 2, 2).nextGeneration();
+    expect(result).toEqual(expectedSimulation);
+  });
 });
