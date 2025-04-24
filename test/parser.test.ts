@@ -231,7 +231,7 @@ describe("Parser", () => {
   });
 
   it("should parse header from block rle file", () => {
-    const result = loadRLEFile("../patterns/block.rle");
+    const result = loadRLEFile("./patterns/block.rle");
     const expected = {
       width: 2,
       height: 2,
@@ -240,7 +240,7 @@ describe("Parser", () => {
   });
 
   it("should parse lines before header from block rle file", () => {
-    const result = loadRLEFile("../patterns/block.rle");
+    const result = loadRLEFile("./patterns/block.rle");
     const expected = {
       linesBeforeHeader: [
         "#N Block",

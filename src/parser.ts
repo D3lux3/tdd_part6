@@ -1,4 +1,5 @@
 import { Cell, LoadRLEResult, Pattern } from "./types";
+import fs from "fs";
 
 export const parseHeader = (header: string) => {
   const regex = /x\s*=\s*(\d+)\s*,\s*y\s*=\s*(\d+)/;
@@ -71,11 +72,18 @@ export const createEmptyPatternGrid = (width: number, height: number): Pattern =
 };
 
 export const loadRLEFile = (filePath: string): LoadRLEResult => {
-  return {
-    linesBeforeHeader: [],
-    width: 2,
-    height: 2,
-    pattern: {},
-    linesAfterPattern: [],
-  };
+  try {
+    const data = fs.readFileSync(filePath, "utf8");
+    const lines = data.split(/\r?\n/);
+    const linesBeforeHeader = lines.filter((line) => line.startsWith("#"));
+    return {
+      linesBeforeHeader,
+      width: 2,
+      height: 2,
+      pattern: {},
+      linesAfterPattern: [],
+    };
+  } catch (error) {
+    throw new Error("Error reading file");
+  }
 };
