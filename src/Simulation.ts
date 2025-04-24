@@ -41,6 +41,11 @@ class Simulation {
   underPopulated(cell: Cell, neighbours: number): boolean {
     return cell === Cell.ALIVE && neighbours < 2;
   }
+  
+  shouldLive(cell: Cell, neighbours: number): boolean {
+    return cell === Cell.ALIVE && (neighbours === 2 || neighbours === 3);
+  }
+
   nextGeneration(): Simulation {
     const newGrid: Pattern = createEmptyPatternGrid(this.rows, this.cols);
 
@@ -54,7 +59,7 @@ class Simulation {
             newGrid[row]![col]! = Cell.DEAD;
           } else if (neighbours > 3) {
             newGrid[row]![col]! = Cell.DEAD;
-          } else {
+          } else if (this.shouldLive(cell, neighbours)) {
             newGrid[row]![col]! = Cell.ALIVE;
           }
         } else {
