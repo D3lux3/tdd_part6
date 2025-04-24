@@ -43,11 +43,25 @@ describe("Parser", () => {
   it("should parse 2x1 pattern", () => {
     const patternLine = "2o!";
     const expected = {
-        0: {
-            0: Cell.ALIVE,
-            1: Cell.ALIVE,
-        }
-    }
+      0: {
+        0: Cell.ALIVE,
+        1: Cell.ALIVE,
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine);
+    expect(parsedPattern).toEqual(expected);
+  });
+
+  it("should parse 1x2 pattern", () => {
+    const patternLine = "o$o!";
+    const expected = {
+      0: {
+        0: Cell.ALIVE,
+      },
+      1: {
+        0: Cell.ALIVE,
+      },
+    };
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
   });
