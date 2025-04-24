@@ -70,4 +70,20 @@ describe("Parser", () => {
     const patternLine = "o$o";
     expect(() => parsePatternLine(patternLine)).toThrowError("Invalid pattern line format");
   });
+
+  it("should parse block pattern", () => {
+    const patternLine = "2o$2o!";
+    const expected = {
+      0: {
+        0: Cell.ALIVE,
+        1: Cell.ALIVE,
+      },
+      1: {
+        0: Cell.ALIVE,
+        1: Cell.ALIVE,
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine);
+    expect(parsedPattern).toEqual(expected);
+  });
 });
