@@ -49,5 +49,12 @@ export const parsePatternLine = (line: string): Pattern => {
 };
 
 export const createEmptyPatternGrid = (width: number, height: number): Pattern => {
-  return { 0: { 0: Cell.DEAD } };
+  const pattern: Pattern = [...Array(height).keys()].reduce((rowAcc: Pattern, rowIndex) => {
+    const row: Record<number, Cell> = [...Array(width).keys()].reduce((cellAcc: Record<number, Cell>, cellIndex) => {
+      cellAcc[cellIndex] = Cell.DEAD;
+      return cellAcc;
+    }, {});
+    return { ...rowAcc, [rowIndex]: row };
+  }, {});
+  return pattern;
 };
