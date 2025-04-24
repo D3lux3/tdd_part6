@@ -21,9 +21,9 @@ export const parsePatternLine = (line: string): Pattern => {
 
   const patternLine = line.slice(0, endOfPatternMarkIndex);
 
-  patternLine.split("$").forEach((row, index) => {
+  patternLine.split("$").forEach((row, rowIndex) => {
     const regex = /\s*(\d*)([o|b])\s*/g;
-    const matches = line.matchAll(regex);
+    const matches = row.matchAll(regex);
 
     const lineTags = [...matches]
       .map((match) => {
@@ -32,12 +32,10 @@ export const parsePatternLine = (line: string): Pattern => {
         return Array(count).fill(cell);
       })
       .forEach((cells, index) => {
-        const row = 0;
         const col = index % cells.length;
-
         cells.forEach((cell, i) => {
-          pattern[row] = pattern[row] || {};
-          pattern[row][i] = cell;
+          pattern[rowIndex] = pattern[rowIndex] || {};
+          pattern[rowIndex][i] = cell;
         });
       });
   });
