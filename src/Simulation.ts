@@ -38,7 +38,9 @@ class Simulation {
       return count;
     }, 0);
   }
-
+  underPopulated(cell: Cell, neighbours: number): boolean {
+    return cell === Cell.ALIVE && neighbours < 2;
+  }
   nextGeneration(): Simulation {
     const newGrid: Pattern = createEmptyPatternGrid(this.rows, this.cols);
 
@@ -46,9 +48,9 @@ class Simulation {
       for (let col = 0; col < this.cols; col++) {
         const cell = this.getCell(row, col);
         const neighbours = this.neighboursCount(row, col);
-
+        
         if (cell === Cell.ALIVE) {
-          if (neighbours < 2) {
+          if (this.underPopulated(cell, neighbours)) {
             newGrid[row]![col]! = Cell.DEAD;
           } else if (neighbours > 3) {
             newGrid[row]![col]! = Cell.DEAD;
