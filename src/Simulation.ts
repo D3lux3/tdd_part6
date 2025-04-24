@@ -11,7 +11,7 @@ class Simulation {
     this.cols = cols;
   }
 
-  getCell(row: number, col: number) {
+  private getCell(row: number, col: number) {
     if (this.grid[row] && this.grid[row][col]) {
       return this.grid[row][col];
     }
