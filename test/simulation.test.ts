@@ -4,7 +4,7 @@ import { Cell } from "../src/types";
 
 /**
  * 
-Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+[x] Any live cell with fewer than two live neighbours dies, as if by underpopulation.
 Any live cell with two or three live neighbours lives on to the next generation.
 Any live cell with more than three live neighbours dies, as if by overpopulation.
 Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
@@ -50,6 +50,24 @@ describe("Game of Life Simulation", () => {
   
       const expectedGridState = {
         0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+        1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+        2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+      };
+      const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+      
+      const result = new Simulation(grid, 3, 3).nextGeneration();
+      expect(result).toEqual(expectedSimulation);
+  });
+
+  it("should keep a live cell with three live neighbours (3x3)", () => {
+    const grid = {
+        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+        1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+        2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+      };
+  
+      const expectedGridState = {
+        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
         1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
         2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
       };
