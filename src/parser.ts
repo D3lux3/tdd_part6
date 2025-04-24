@@ -76,10 +76,15 @@ export const loadRLEFile = (filePath: string): LoadRLEResult => {
     const data = fs.readFileSync(filePath, "utf8");
     const lines = data.split(/\r?\n/);
     const linesBeforeHeader = lines.filter((line) => line.startsWith("#"));
+
+    const headerLine = lines[linesBeforeHeader.length];
+    if (!headerLine) {
+      throw new Error("Header line not found");
+    }
+    const header = parseHeader(headerLine);
     return {
       linesBeforeHeader,
-      width: 2,
-      height: 2,
+      ...header,
       pattern: {},
       linesAfterPattern: [],
     };
