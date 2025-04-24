@@ -1,6 +1,7 @@
 import path from "path";
 import { it, describe, expect } from "vitest";
 import { execa } from "execa";
+import '../src/index.ts?raw';
 
 describe("End-to-end test", () => {
   it("should read and parse given file", async () => {
