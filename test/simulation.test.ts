@@ -48,12 +48,14 @@ describe("Game of Life Simulation", () => {
     };
 
     const expectedGridState = {
-      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
+
     const expectedSimulation = new Simulation(expectedGridState, 3, 3);
 
+    expect(expectedSimulation.computeNextCellState(1, 1)).toEqual(Cell.ALIVE);
     const result = new Simulation(grid, 3, 3).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
@@ -96,19 +98,19 @@ describe("Game of Life Simulation", () => {
 
   it("should revive a dead cell with exactly three live neighbours (3x3)", () => {
     const grid = {
-        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
-      };
-  
-      const expectedGridState = {
-        0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-        1: { 0: Cell.ALIVE, 1: Cell.DEAD, 2: Cell.DEAD },
-        2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      };
-      const expectedSimulation = new Simulation(expectedGridState, 3, 3);
-  
-      const result = new Simulation(grid, 3, 3).nextGeneration();
-      expect(result).toEqual(expectedSimulation);
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+    };
+
+    const expectedGridState = {
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      1: { 0: Cell.ALIVE, 1: Cell.DEAD, 2: Cell.DEAD },
+      2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+    };
+    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+
+    const result = new Simulation(grid, 3, 3).nextGeneration();
+    expect(result).toEqual(expectedSimulation);
   });
 });
