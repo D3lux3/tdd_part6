@@ -55,6 +55,12 @@ class Simulation {
           } else {
             newGrid[row]![col]! = Cell.ALIVE;
           }
+        } else {
+          if (neighbours === 3) {
+            newGrid[row]![col]! = Cell.ALIVE;
+          } else {
+            newGrid[row]![col]! = Cell.DEAD;
+          }
         }
       }
     }
