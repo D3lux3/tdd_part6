@@ -328,4 +328,24 @@ describe("Parser", () => {
     };
     expect(result).toMatchObject(expected);
   });
+
+  it("should parse lines after pattern from block rle file", () => {
+    const result = loadRLEFile("./patterns/block_lines_after_pattern.rle");
+    const expected = {
+      width: 2,
+      height: 2,
+      pattern: {
+        0: {
+          0: Cell.ALIVE,
+          1: Cell.ALIVE,
+        },
+        1: {
+          0: Cell.ALIVE,
+          1: Cell.ALIVE,
+        },
+      },
+      linesAfterPattern: ["This is an comment without whitespace"],
+    };
+    expect(result).toMatchObject(expected);
+  });
 });
