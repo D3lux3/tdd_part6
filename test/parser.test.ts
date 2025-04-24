@@ -86,4 +86,16 @@ describe("Parser", () => {
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
   });
+  it("should parse blinker pattern", () => {
+    const patternLine = "3o!";
+    const expected = {
+      0: {
+        0: Cell.ALIVE,
+        1: Cell.ALIVE,
+        2: Cell.ALIVE,
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine);
+    expect(parsedPattern).toEqual(expected);
+  });
 });
