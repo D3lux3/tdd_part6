@@ -12,12 +12,12 @@ describe("Parser", () => {
     expect(result).toEqual(expected);
   });
 
-  it("should parse pattern size from header", () => {
-    const header = `x = 2, y = 2, rule = B3/S23`;
+  it("should parse pattern size when x and y differs from header", () => {
+    const header = `x = 2, y = 4, rule = B3/S23`;
 
     const expected = {
       width: 2,
-      height: 2,
+      height: 4,
     };
 
     const result = parseHeader(header);
