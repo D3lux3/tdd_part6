@@ -13,4 +13,8 @@ describe("Parser", () => {
     const result = parseHeader(header);
     expect(result).toEqual(expected);
   });
+
+  it('should throw error if header if invalid', () => {
+    expect(() => parseHeader('invalid header')).toThrowError('Invalid header format');
+  })
 });
