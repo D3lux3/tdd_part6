@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { parseHeader, parsePatternLine } from "../src/parser";
+import { Cell } from "../src/types";
 
 describe("Parser", () => {
   it("should parse 1x1 pattern size from header", () => {
@@ -32,7 +33,7 @@ describe("Parser", () => {
     const patternLine = "1o!";
     const expected = {
       1: {
-        1: "o",
+        1: Cell.ALIVE,
       },
     };
     const parsedPattern = parsePatternLine(patternLine);
