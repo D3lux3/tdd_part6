@@ -292,4 +292,14 @@ describe("Parser", () => {
     };
     expect(result).toMatchObject(expected);
   });
+
+  it("should parse a rle file with otherwise too long pattern, but its splitted on two lines", () => {
+    const result = loadRLEFile("./patterns/too_long_lines_splitted.rle");
+    const expected = {
+      linesBeforeHeader: ["#N Long and splitted"],
+      width: 80,
+      height: 80,
+    };
+    expect(result).toMatchObject(expected);
+  });
 });
