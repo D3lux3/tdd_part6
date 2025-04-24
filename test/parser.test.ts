@@ -384,10 +384,9 @@ describe("Parser", () => {
     const simulated = new Simulation(gridState, width, height);
 
     const output = outputSimulatedPattern(simulated, linesBeforeHeader, linesAfterPattern);
-    expect(output).toEqual(`
-      #N 1x1 pattern
-      x = 1, y = 1
-      o!
-      #C This is a comment`);
+    expect(output).toEqual(`#N 1x1 pattern
+x = 1, y = 1
+o!
+#C This is a comment`);
   });
 });
