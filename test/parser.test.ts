@@ -262,4 +262,14 @@ describe("Parser", () => {
   it("should return error if line exceeds 70 characters", () => {
     expect(() => loadRLEFile("./patterns/too_long_lines.rle")).toThrowErrorMatchingSnapshot();
   });
+
+  it("should parse header without lines preceding it from block rle file", () => {
+    const result = loadRLEFile("./patterns/block_no_lines_before_header.rle");
+    const expected = {
+      linesBeforeHeader: [],
+      width: 2,
+      height: 2,
+    };
+    expect(result).toMatchObject(expected);
+  });
 });
