@@ -85,7 +85,7 @@ class Simulation {
     const minY = Math.min(...aliveCells.map(([, y]) => y));
     const maxY = Math.max(...aliveCells.map(([, y]) => y));
 
-    return { x: maxX - minX + 1, y: maxY - minY + 1 };
+    return { y: maxX - minX + 1, x: maxY - minY + 1 };
   }
 
   toString(): string {
