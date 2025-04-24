@@ -86,6 +86,7 @@ describe("Parser", () => {
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
   });
+
   it("should parse blinker pattern", () => {
     const patternLine = "3o!";
     const expected = {
@@ -98,6 +99,7 @@ describe("Parser", () => {
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
   });
+
   it("should parse glider pattern", () => {
     const patternLine = "bob$2bo$3o!";
     const expected = {
