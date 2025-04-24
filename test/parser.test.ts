@@ -272,4 +272,24 @@ describe("Parser", () => {
     };
     expect(result).toMatchObject(expected);
   });
+
+  it("should parse a rle file with pattern splitted on two lines", () => {
+    const result = loadRLEFile("./patterns/splitted_block.rle");
+    const expected = {
+      linesBeforeHeader: ["#N Splitted Block"],
+      width: 2,
+      height: 2,
+      pattern: {
+        0: {
+          0: Cell.ALIVE,
+          1: Cell.ALIVE,
+        },
+        1: {
+          0: Cell.ALIVE,
+          1: Cell.ALIVE,
+        },
+      },
+    };
+    expect(result).toMatchObject(expected);
+  });
 });
