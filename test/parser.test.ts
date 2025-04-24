@@ -2,6 +2,16 @@ import { describe, expect, it } from "vitest";
 import { parseHeader } from "../src/parser";
 
 describe("Parser", () => {
+  it("should parse 1x1 pattern size from header", () => {
+    const header = `x = 1, y = 1`;
+    const expected = {
+      width: 1,
+      height: 1,
+    };
+    const result = parseHeader(header);
+    expect(result).toEqual(expected);
+  });
+
   it("should parse pattern size from header", () => {
     const header = `x = 2, y = 2, rule = B3/S23`;
 
