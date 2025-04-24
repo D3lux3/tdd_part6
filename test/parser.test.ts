@@ -122,4 +122,15 @@ describe("Parser", () => {
     const parsedPattern = parsePatternLine(patternLine);
     expect(parsedPattern).toEqual(expected);
   });
+
+  it("should parse optimized 1x1 pattern", () => {
+    const patternLine = "!";
+    const expected = {
+      0: {
+        0: Cell.DEAD,
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine);
+    expect(parsedPattern).toEqual(expected);
+  })
 });
