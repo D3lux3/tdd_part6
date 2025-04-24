@@ -169,4 +169,17 @@ describe("Parser", () => {
 
     expect(createEmptyPatternGrid(2, 2)).toEqual(expected);
   });
+
+  it("should generate 1x2 empty pattern space", () => {
+    const expected = {
+      0: {
+        0: Cell.DEAD,
+      },
+      1: {
+        0: Cell.DEAD,
+      },
+    };
+
+    expect(createEmptyPatternGrid(1, 2)).toEqual(expected);
+  });
 });
