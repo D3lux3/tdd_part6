@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { parseHeader, parsePattern, createEmptyPatternGrid, loadRLEFile } from "../src/parser";
+import { parseHeader, parsePattern, createEmptyPatternGrid, loadRLEFile, outputSimulatedPattern } from "../src/parser";
 import { Cell } from "../src/types";
+import Simulation from "../src/Simulation";
 
 describe("Parser", () => {
   it("should parse 1x1 pattern size from header", () => {
@@ -367,5 +368,26 @@ describe("Parser", () => {
       linesAfterPattern: ["", "This is an comment"],
     };
     expect(result).toMatchObject(expected);
+  });
+
+  it("should output given 1x1 pattern in rle format", () => {
+    const width = 1;
+    const height = 1;
+    const linesBeforeHeader = ["#N 1x1 pattern"];
+    const linesAfterPattern = ["#C This is a comment"];
+
+    const gridState = {
+      0: {
+        0: Cell.ALIVE,
+      },
+    };
+    const simulated = new Simulation(gridState, width, height);
+
+    const output = outputSimulatedPattern(simulated, linesBeforeHeader, linesAfterPattern);
+    expect(output).toEqual(`
+      #N 1x1 pattern
+      x = 1, y = 1
+      o!
+      #C This is a comment`);
   });
 });
