@@ -302,4 +302,30 @@ describe("Parser", () => {
     };
     expect(result).toMatchObject(expected);
   });
+
+  it("should parse glider with a lots of whitespace in the pattern", () => {
+    const result = loadRLEFile("./patterns/glider_with_whitespace.rle");
+    const expected = {
+      width: 3,
+      height: 3,
+      pattern: {
+        0: {
+          0: Cell.DEAD,
+          1: Cell.ALIVE,
+          2: Cell.DEAD,
+        },
+        1: {
+          0: Cell.DEAD,
+          1: Cell.DEAD,
+          2: Cell.ALIVE,
+        },
+        2: {
+          0: Cell.ALIVE,
+          1: Cell.ALIVE,
+          2: Cell.ALIVE,
+        },
+      },
+    };
+    expect(result).toMatchObject(expected);
+  });
 });
