@@ -371,8 +371,8 @@ describe("Parser", () => {
   });
 
   it("should output given 1x1 pattern in rle format", () => {
-    const width = 1;
-    const height = 1;
+    const x = 1;
+    const y = 1;
     const linesBeforeHeader = ["#N 1x1 pattern"];
     const linesAfterPattern = ["#C This is a comment"];
 
@@ -381,7 +381,7 @@ describe("Parser", () => {
         0: Cell.ALIVE,
       },
     };
-    const simulated = new Simulation(gridState, width, height);
+    const simulated = new Simulation(gridState, y, x);
 
     const output = outputSimulatedPattern(simulated, linesBeforeHeader, linesAfterPattern);
     expect(output).toEqual(`#N 1x1 pattern
@@ -405,7 +405,7 @@ o!
       },
     };
   
-    const simulated = new Simulation(gridState, x, y);
+    const simulated = new Simulation(gridState, y, x);
 
     const output = outputSimulatedPattern(simulated, linesBeforeHeader, linesAfterPattern);
     expect(output).toEqual(`#N 1x2 pattern

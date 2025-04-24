@@ -6,10 +6,10 @@ class Simulation {
   rows: number;
   cols: number;
 
-  constructor(grid: Pattern, rows: number, cols: number) {
+  constructor(grid: Pattern, y: number, x: number) {
     this.grid = grid;
-    this.rows = rows;
-    this.cols = cols;
+    this.rows = y;
+    this.cols = x;
   }
 
   private getCell(row: number, col: number) {
@@ -90,9 +90,9 @@ class Simulation {
 
   toString(): string {
     return `${Object.entries(this.grid)
-      .map(([rowIndex, row]) => {
+      .map(([_rowIndex, row]) => {
         return Object.entries(row)
-          .map(([colIndex, cell]) => (cell === Cell.ALIVE ? "o" : "b"))
+          .map(([_colIndex, cell]) => (cell === Cell.ALIVE ? "o" : "b"))
           .join("");
       })
       .join("$")}!`;

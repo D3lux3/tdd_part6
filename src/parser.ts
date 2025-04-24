@@ -8,10 +8,10 @@ export const parseHeader = (header: string) => {
   if (!match) {
     throw new Error("Invalid header format");
   }
-  const width = Number(match[1]);
-  const height = Number(match[2]);
+  const x = Number(match[1]);
+  const y = Number(match[2]);
 
-  return { width, height };
+  return { width: x, height: y };
 };
 
 export const parsePattern = (line: string, width: number, height: number): Pattern => {
