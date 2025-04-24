@@ -6,16 +6,17 @@ import '../src/index.ts?raw';
 describe("End-to-end test", () => {
   it("should read and parse given file", async () => {
     const indexPath = path.resolve(__dirname, "..", "src", "index.ts");
-    const filePath = path.resolve(__dirname, "..", "patterns", "block.rle");
+    const filePath = path.resolve(__dirname, "..", "patterns", "blinker.rle");
 
-    const { stdout } = await execa("ts-node", [indexPath, filePath, "123"]);
+    const { stdout } = await execa("ts-node", [indexPath, filePath, "1"]);
 
-    const expected = `#N Block
-#C An extremely common 4-cell still life.
-#C www.conwaylife.com/wiki/index.php?title=Block
-x = 2, y = 2, rule = B3/S23
-2o$2o!`
+    const expected = `#N Blinker
+#O John Conway
+#C A period 2 oscillator that is the smallest and most common oscillator.
+#C www.conwaylife.com/wiki/index.php?title=Blinker
+x = 1, y = 3
+o$o$o!`
     expect(stdout).toEqual(expected);
-    expect(stdout).toContain("#N Block");
+    expect(stdout).toContain("N Blinker");
   });
 });
