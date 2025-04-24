@@ -36,7 +36,7 @@ describe("Parser", () => {
         0: Cell.ALIVE,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 1, 1);
     expect(parsedPattern).toEqual(expected);
   });
 
@@ -48,7 +48,7 @@ describe("Parser", () => {
         1: Cell.ALIVE,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 2, 1);
     expect(parsedPattern).toEqual(expected);
   });
 
@@ -62,13 +62,13 @@ describe("Parser", () => {
         0: Cell.ALIVE,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 1, 2);
     expect(parsedPattern).toEqual(expected);
   });
 
   it("should throw error if pattern missing exclamation mark (end of pattern)", () => {
     const patternLine = "o$o";
-    expect(() => parsePatternLine(patternLine)).toThrowError("Invalid pattern line format");
+    expect(() => parsePatternLine(patternLine, 1, 2)).toThrowError("Invalid pattern line format");
   });
 
   it("should parse block pattern", () => {
@@ -83,7 +83,7 @@ describe("Parser", () => {
         1: Cell.ALIVE,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 2, 2);
     expect(parsedPattern).toEqual(expected);
   });
 
@@ -96,7 +96,7 @@ describe("Parser", () => {
         2: Cell.ALIVE,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 3, 1);
     expect(parsedPattern).toEqual(expected);
   });
 
@@ -119,7 +119,7 @@ describe("Parser", () => {
         2: Cell.ALIVE,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 3, 3);
     expect(parsedPattern).toEqual(expected);
   });
 
@@ -130,7 +130,7 @@ describe("Parser", () => {
         0: Cell.DEAD,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 1, 1);
     expect(parsedPattern).toEqual(expected);
   });
   it("should parse optimized 2x1 pattern", () => {
@@ -141,7 +141,7 @@ describe("Parser", () => {
         1: Cell.DEAD,
       },
     };
-    const parsedPattern = parsePatternLine(patternLine);
+    const parsedPattern = parsePatternLine(patternLine, 2, 1);
     expect(parsedPattern).toEqual(expected);
   });
 

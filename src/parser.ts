@@ -12,7 +12,7 @@ export const parseHeader = (header: string) => {
   return { width, height };
 };
 
-export const parsePatternLine = (line: string): Pattern => {
+export const parsePatternLine = (line: string, width: number, height: number): Pattern => {
   const endOfPatternMarkIndex = line.indexOf("!");
   if (endOfPatternMarkIndex === -1) {
     throw new Error("Invalid pattern line format");
@@ -20,7 +20,8 @@ export const parsePatternLine = (line: string): Pattern => {
 
   const patternLine = line.slice(0, endOfPatternMarkIndex);
 
-  return patternLine.split("$").reduce((acc, row, rowIndex) => {
+  const emptyGrid = createEmptyPatternGrid(width, height);
+  const parsed = patternLine.split("$").reduce((acc, row, rowIndex) => {
     const regex = /\s*(\d*)([o|b])\s*/g;
     const matches = row.matchAll(regex);
 
@@ -46,6 +47,16 @@ export const parsePatternLine = (line: string): Pattern => {
 
     return { ...acc, ...rowTags };
   }, {});
+
+  const union: Pattern = { ...emptyGrid, ...parsed };
+  const deepUnion = Object.keys(union).reduce((acc: Record<number, Record<number, Cell>>, _, rowIndex) => {
+    const row = union[rowIndex];
+    const newRowUnion = { ...emptyGrid[rowIndex], ...row };
+    acc[rowIndex] = newRowUnion;
+    return acc;
+  }, {});
+
+  return deepUnion;
 };
 
 export const createEmptyPatternGrid = (width: number, height: number): Pattern => {
