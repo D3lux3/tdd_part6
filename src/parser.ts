@@ -87,11 +87,12 @@ export const loadRLEFile = (filePath: string): LoadRLEResult => {
 
     const pattern = parsePattern(linesAfterHeader.join(""), header.width, header.height);
 
+    const linesAfterPattern = linesAfterHeader.slice(linesAfterHeader.findIndex((line) => line.includes("!")) + 1);
     return {
       linesBeforeHeader,
       ...header,
       pattern,
-      linesAfterPattern: [],
+      linesAfterPattern,
     };
   } catch (error) {
     throw new Error(`Error reading file: ${error}`);
