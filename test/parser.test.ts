@@ -389,4 +389,28 @@ x = 1, y = 1
 o!
 #C This is a comment`);
   });
+
+  it("should output given 2x1 pattern in rle format", () => {
+    const width = 2;
+    const height = 1;
+    const linesBeforeHeader = ["#N 2x1 pattern"];
+    const linesAfterPattern = ["#C This is a comment"];
+
+    const gridState = {
+      0: {
+        0: Cell.ALIVE,
+      },
+      1: {
+        0: Cell.ALIVE,
+      },
+    };
+  
+    const simulated = new Simulation(gridState, width, height);
+
+    const output = outputSimulatedPattern(simulated, linesBeforeHeader, linesAfterPattern);
+    expect(output).toEqual(`#N 2x1 pattern
+x = 2, y = 1
+o$o!
+#C This is a comment`);
+  });
 });
