@@ -258,4 +258,8 @@ describe("Parser", () => {
   it("should return error if header not found", () => {
     expect(() => loadRLEFile("./patterns/invalid.rle")).toThrowErrorMatchingSnapshot();
   });
+
+  it("should return error if line exceeds 70 characters", () => {
+    expect(() => loadRLEFile("./patterns/too_long_lines.rle")).toThrowErrorMatchingSnapshot();
+  });
 });
