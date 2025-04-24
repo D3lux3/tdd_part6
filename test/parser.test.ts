@@ -238,4 +238,16 @@ describe("Parser", () => {
     };
     expect(result).toMatchObject(expected);
   });
+
+  it("should parse lines before header from block rle file", () => {
+    const result = loadRLEFile("../patterns/block.rle");
+    const expected = {
+      linesBeforeHeader: [
+        "#N Block",
+        "#C An extremely common 4-cell still life.",
+        "#C www.conwaylife.com/wiki/index.php?title=Block",
+      ],
+    };
+    expect(result).toMatchObject(expected);
+  });
 });

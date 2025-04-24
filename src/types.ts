@@ -8,3 +8,11 @@ export type Pattern = {
     [col: number]: Cell;
   };
 };
+
+export type LoadRLEResult = {
+  linesBeforeHeader: string[];
+  width: number;
+  height: number;
+  pattern: Pattern;
+  linesAfterPattern: string[];
+};

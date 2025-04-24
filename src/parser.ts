@@ -1,4 +1,4 @@
-import { Cell, Pattern } from "./types";
+import { Cell, LoadRLEResult, Pattern } from "./types";
 
 export const parseHeader = (header: string) => {
   const regex = /x\s*=\s*(\d+)\s*,\s*y\s*=\s*(\d+)/;
@@ -68,4 +68,14 @@ export const createEmptyPatternGrid = (width: number, height: number): Pattern =
     return { ...rowAcc, [rowIndex]: row };
   }, {});
   return pattern;
+};
+
+export const loadRLEFile = (filePath: string): LoadRLEResult => {
+  return {
+    linesBeforeHeader: [],
+    width: 2,
+    height: 2,
+    pattern: {},
+    linesAfterPattern: [],
+  };
 };
