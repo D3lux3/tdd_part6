@@ -23,7 +23,7 @@ describe("Game of Life Simulation", () => {
         expect(result).toEqual(0);
     });
 
-  it.skip("kills a live cell with fewer than two live neighbours (underpopulation) (3x3)", () => {
+  it("kills a live cell with fewer than two live neighbours (underpopulation) (3x3)", () => {
     const grid = {
       0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
