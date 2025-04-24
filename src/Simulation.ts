@@ -1,4 +1,3 @@
-import { createEmptyPatternGrid } from "./parser";
 import { Cell, Pattern } from "./types";
 
 class Simulation {
@@ -63,13 +62,10 @@ class Simulation {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++) {
         const newCellState = this.computeNextCellState(row, col);
-
-        if (newCellState === Cell.ALIVE) {
-          if (!newGrid[row]) {
-            newGrid[row] = {};
-          }
-          newGrid[row]![col] = newCellState;
+        if (!newGrid[row]) {
+          newGrid[row] = {};
         }
+        newGrid[row]![col] = newCellState;
       }
     }
     const { x, y } = this.getGridShape(newGrid);
