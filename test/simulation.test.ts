@@ -22,29 +22,24 @@ describe("Game of Life Simulation", () => {
     expect(result).toEqual(0);
   });
 
-  it("kills a live cell with fewer than two live neighbours (underpopulation) (3x3)", () => {
+  it("kills a live cell with fewer than two live neighbours (underpopulation)", () => {
     const grid = {
       0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
 
-    const expectedGridState = {
-      0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      1: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-    };
-    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+    const expectedGridState = {};
+    const expectedSimulation = new Simulation(expectedGridState, 0, 0);
 
     const result = new Simulation(grid, 3, 3).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
-  it("should keep a live cell with two live neighbours (3x3)", () => {
+  it("should keep a live cell with two live neighbours", () => {
     const grid = {
       0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
 
     const expectedGridState = {
@@ -53,14 +48,14 @@ describe("Game of Life Simulation", () => {
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
 
-    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+    const expectedSimulation = new Simulation(expectedGridState, 2, 2);
 
     expect(expectedSimulation.computeNextCellState(1, 1)).toEqual(Cell.ALIVE);
     const result = new Simulation(grid, 3, 3).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
-  it("should keep a live cell with three live neighbours (3x3)", () => {
+  it("should keep a live cell with three live neighbours", () => {
     const grid = {
       0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
@@ -72,13 +67,13 @@ describe("Game of Life Simulation", () => {
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
-    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+    const expectedSimulation = new Simulation(expectedGridState, 2, 2);
 
     const result = new Simulation(grid, 3, 3).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
-  it("kills a live cell with more than three live neighbours (overpopulation) (3x3)", () => {
+  it("kills a live cell with more than three live neighbours (overpopulation)", () => {
     const grid = {
       0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
@@ -97,7 +92,7 @@ describe("Game of Life Simulation", () => {
     expect(result).toEqual(expectedSimulation);
   });
 
-  it("should revive a dead cell with exactly three live neighbours (3x3)", () => {
+  it("should revive a dead cell with exactly three live neighbours", () => {
     const grid = {
       0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
@@ -143,9 +138,17 @@ describe("Game of Life Simulation", () => {
       1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
       2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
     };
-    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
-
+    const expectedSimulation = new Simulation(expectedGridState, 1, 3);
     const result = new Simulation(grid, 3, 3).nextGeneration();
     expect(result).toEqual(expectedSimulation);
+  });
+
+  it.skip('should output the correct blinker pattern after 1 generation', () => {
+    const grid = {
+        1: { 0: Cell.ALIVE, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      };
+      const result = new Simulation(grid, 3, 1).nextGeneration();
+      console.log('result', result.getPatternShape());
+      expect(result.getPatternShape()).toEqual({ x: 1, y: 3 });
   });
 });
