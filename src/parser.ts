@@ -79,6 +79,12 @@ export const loadRLEFile = (filePath: string): LoadRLEResult => {
 
     const headerLine = lines[linesBeforeHeader.length];
     const header = parseHeader(headerLine || "");
+    const patternLines = lines.slice(linesBeforeHeader.length + 1);
+
+    if (patternLines.filter((line) => line.length > 70).length > 0) {
+      throw new Error("Line exceeds 70 characters");
+    }
+
     return {
       linesBeforeHeader,
       ...header,

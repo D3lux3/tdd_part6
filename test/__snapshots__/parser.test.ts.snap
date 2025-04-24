@@ -3,3 +3,5 @@
 exports[`Parser > should return error if file not found 1`] = `[Error: Error reading file: Error: ENOENT: no such file or directory, open './patterns/invalid2.rle']`;
 
 exports[`Parser > should return error if header not found 1`] = `[Error: Error reading file: Error: Invalid header format]`;
+
+exports[`Parser > should return error if line exceeds 70 characters 1`] = `[Error: Error reading file: Error: Line exceeds 70 characters]`;
