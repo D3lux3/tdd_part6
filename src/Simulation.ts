@@ -70,7 +70,7 @@ class Simulation {
     return new Simulation(newGrid, this.rows, this.cols);
   }
 
-  getPatternShape(): {x: number; y: number} {
+  getPatternShape(): { x: number; y: number } {
     const aliveCells = Object.entries(this.grid).reduce((acc: [number, number][], [rowIndex, row]) => {
       Object.entries(row).forEach(([colIndex, cell]) => {
         if (cell === Cell.ALIVE) {
@@ -86,6 +86,16 @@ class Simulation {
     const maxY = Math.max(...aliveCells.map(([, y]) => y));
 
     return { x: maxX - minX + 1, y: maxY - minY + 1 };
+  }
+
+  toString(): string {
+    return `${Object.entries(this.grid)
+      .map(([rowIndex, row]) => {
+        return Object.entries(row)
+          .map(([colIndex, cell]) => (cell === Cell.ALIVE ? "o" : "b"))
+          .join("");
+      })
+      .join("")}!`;
   }
 }
 

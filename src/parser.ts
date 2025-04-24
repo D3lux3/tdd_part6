@@ -105,7 +105,7 @@ export const outputSimulatedPattern = (simulated: Simulation, linesBeforeHeader:
   const linesBeforeHeaderString = linesBeforeHeader.join("\n");
   const {x, y} = simulated.getPatternShape();
   const header = `x = ${x}, y = ${y}`;
-  const pattern = `o!`;
+  const pattern = simulated.toString();
   const linesAfterPatternString = linesAfterPattern.join("\n");
   const output = `${linesBeforeHeaderString}\n${header}\n${pattern}\n${linesAfterPatternString}`;
   return output;
