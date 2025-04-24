@@ -30,13 +30,14 @@ describe("Game of Life Simulation", () => {
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
 
-    const expected = {
+    const expectedGridState = {
       0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
       1: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
-
+    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+    
     const result = new Simulation(grid, 3, 3).nextGeneration();
-    expect(result).toEqual(expected);
+    expect(result).toEqual(expectedSimulation);
   });
 });

@@ -1,3 +1,4 @@
+import { createEmptyPatternGrid } from "./parser";
 import { Cell, Pattern } from "./types";
 
 class Simulation {
@@ -36,6 +37,27 @@ class Simulation {
       }
       return count;
     }, 0);
+  }
+
+  nextGeneration(): Simulation {
+    const newGrid: Pattern = createEmptyPatternGrid(this.rows, this.cols);
+
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.cols; col++) {
+        const cell = this.getCell(row, col);
+        const neighbours = this.neighboursCount(row, col);
+
+        if (cell === Cell.ALIVE) {
+          if (neighbours < 2) {
+            newGrid[row]![col]! = Cell.DEAD;
+          } else {
+            newGrid[row]![col]! = Cell.ALIVE;
+          }
+        }
+      }
+    }
+
+    return new Simulation(newGrid, this.rows, this.cols);
   }
 }
 
