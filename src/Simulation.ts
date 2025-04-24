@@ -50,6 +50,8 @@ class Simulation {
         if (cell === Cell.ALIVE) {
           if (neighbours < 2) {
             newGrid[row]![col]! = Cell.DEAD;
+          } else if (neighbours > 3) {
+            newGrid[row]![col]! = Cell.DEAD;
           } else {
             newGrid[row]![col]! = Cell.ALIVE;
           }
