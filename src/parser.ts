@@ -1,3 +1,4 @@
+import Simulation from "./Simulation";
 import { Cell, LoadRLEResult, Pattern } from "./types";
 import fs from "fs";
 
@@ -98,3 +99,13 @@ export const loadRLEFile = (filePath: string): LoadRLEResult => {
     throw new Error(`Error reading file: ${error}`);
   }
 };
+
+
+export const outputSimulatedPattern = (simulated: Simulation, linesBeforeHeader: string[], linesAfterPattern: string[]) => {
+  const linesBeforeHeaderString = linesBeforeHeader.join("\n");
+  const header = `x = ${simulated.rows}, y = ${simulated.cols}`;
+  const pattern = `o!`;
+  const linesAfterPatternString = linesAfterPattern.join("\n");
+  const output = `${linesBeforeHeaderString}\n${header}\n${pattern}\n${linesAfterPatternString}`;
+  return output;
+}
