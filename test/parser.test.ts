@@ -250,4 +250,8 @@ describe("Parser", () => {
     };
     expect(result).toMatchObject(expected);
   });
+
+  it("should return error if file not found", () => {
+    expect(() => loadRLEFile("./patterns/invalid.rle")).toThrowError("Error reading file");
+  });
 });
