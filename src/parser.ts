@@ -12,7 +12,7 @@ export const parseHeader = (header: string) => {
   return { width, height };
 };
 
-export const parsePatternLine = (line: string, width: number, height: number): Pattern => {
+export const parsePattern = (line: string, width: number, height: number): Pattern => {
   const endOfPatternMarkIndex = line.indexOf("!");
   if (endOfPatternMarkIndex === -1) {
     throw new Error("Invalid pattern line format");
