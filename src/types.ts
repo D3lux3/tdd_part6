@@ -1,6 +1,6 @@
 export enum Cell {
-  DEAD = "DEAD",
-  ALIVE = "ALIVE",
+  DEAD = "b",
+  ALIVE = "o",
 }
 
 export type Pattern = {
