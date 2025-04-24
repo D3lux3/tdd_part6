@@ -24,7 +24,7 @@ describe("Parser", () => {
     expect(result).toEqual(expected);
   });
 
-  it('should throw error if header if invalid', () => {
-    expect(() => parseHeader('invalid header')).toThrowError('Invalid header format');
-  })
+  it("should throw error if header if invalid", () => {
+    expect(() => parseHeader("invalid header")).toThrowError("Invalid header format");
+  });
 });

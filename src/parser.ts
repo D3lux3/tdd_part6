@@ -4,5 +4,8 @@ export const parseHeader = (header: string) => {
   if (!match) {
     throw new Error("Invalid header format");
   }
-  return { width: 1, height: 1 };
+  const width = Number(match[1]);
+  const height = Number(match[2]);
+  
+  return { width, height };
 };
