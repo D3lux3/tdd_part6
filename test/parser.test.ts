@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseHeader, parsePattern, createEmptyPatternGrid } from "../src/parser";
+import { parseHeader, parsePattern, createEmptyPatternGrid, loadRLEFile } from "../src/parser";
 import { Cell } from "../src/types";
 
 describe("Parser", () => {
@@ -228,5 +228,14 @@ describe("Parser", () => {
     };
     const parsedPattern = parsePattern(patternLine, 3, 3);
     expect(parsedPattern).toEqual(expected);
+  });
+
+  it("should parse header from block rle file", () => {
+    const result = loadRLEFile("../patterns/block.rle");
+    const expected = {
+      width: 2,
+      height: 2,
+    };
+    expect(result).toMatchObject(expected);
   });
 });
