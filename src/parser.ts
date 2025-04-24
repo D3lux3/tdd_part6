@@ -78,10 +78,7 @@ export const loadRLEFile = (filePath: string): LoadRLEResult => {
     const linesBeforeHeader = lines.filter((line) => line.startsWith("#"));
 
     const headerLine = lines[linesBeforeHeader.length];
-    if (!headerLine) {
-      throw new Error("Header line not found");
-    }
-    const header = parseHeader(headerLine);
+    const header = parseHeader(headerLine || "");
     return {
       linesBeforeHeader,
       ...header,
@@ -89,6 +86,6 @@ export const loadRLEFile = (filePath: string): LoadRLEResult => {
       linesAfterPattern: [],
     };
   } catch (error) {
-    throw new Error("Error reading file");
+    throw new Error(`Error reading file: ${error}`);
   }
 };

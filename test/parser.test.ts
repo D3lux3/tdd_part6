@@ -252,6 +252,10 @@ describe("Parser", () => {
   });
 
   it("should return error if file not found", () => {
-    expect(() => loadRLEFile("./patterns/invalid.rle")).toThrowError("Error reading file");
+    expect(() => loadRLEFile("./patterns/invalid2.rle")).toThrowErrorMatchingSnapshot();
+  });
+
+  it("should return error if header not found", () => {
+    expect(() => loadRLEFile("./patterns/invalid.rle")).toThrowErrorMatchingSnapshot();
   });
 });
