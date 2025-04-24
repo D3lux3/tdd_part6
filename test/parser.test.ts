@@ -133,6 +133,7 @@ describe("Parser", () => {
     const parsedPattern = parsePatternLine(patternLine, 1, 1);
     expect(parsedPattern).toEqual(expected);
   });
+
   it("should parse optimized 2x1 pattern", () => {
     const patternLine = "!";
     const expected = {
@@ -142,6 +143,29 @@ describe("Parser", () => {
       },
     };
     const parsedPattern = parsePatternLine(patternLine, 2, 1);
+    expect(parsedPattern).toEqual(expected);
+  });
+
+  it("should parse optimized glider pattern", () => {
+    const patternLine = "bo$2bo$3o!";
+    const expected = {
+      0: {
+        0: Cell.DEAD,
+        1: Cell.ALIVE,
+        2: Cell.DEAD,
+      },
+      1: {
+        0: Cell.DEAD,
+        1: Cell.DEAD,
+        2: Cell.ALIVE,
+      },
+      2: {
+        0: Cell.ALIVE,
+        1: Cell.ALIVE,
+        2: Cell.ALIVE,
+      },
+    };
+    const parsedPattern = parsePatternLine(patternLine, 3, 3);
     expect(parsedPattern).toEqual(expected);
   });
 
