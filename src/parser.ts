@@ -32,6 +32,10 @@ export const parsePatternLine = (line: string): Pattern => {
       })
       .flat() as Cell[];
 
+    if (lineTags.length === 0) {
+      return { 0: { 0: Cell.DEAD } };
+    }
+
     const rowTags = lineTags.reduce((acc: Record<number, Record<number, Cell>>, cell, index) => {
       if (!acc[rowIndex]) {
         acc[rowIndex] = {};
