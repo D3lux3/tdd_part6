@@ -95,7 +95,7 @@ class Simulation {
           .map(([colIndex, cell]) => (cell === Cell.ALIVE ? "o" : "b"))
           .join("");
       })
-      .join("")}!`;
+      .join("$")}!`;
   }
 }
 
