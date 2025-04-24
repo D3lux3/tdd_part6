@@ -13,7 +13,6 @@ export const parseHeader = (header: string) => {
 };
 
 export const parsePatternLine = (line: string): Pattern => {
-  const pattern: Pattern = {};
   const endOfPatternMarkIndex = line.indexOf("!");
   if (endOfPatternMarkIndex === -1) {
     throw new Error("Invalid pattern line format");
@@ -21,7 +20,7 @@ export const parsePatternLine = (line: string): Pattern => {
 
   const patternLine = line.slice(0, endOfPatternMarkIndex);
 
-  patternLine.split("$").forEach((row, rowIndex) => {
+  return patternLine.split("$").reduce((acc, row, rowIndex) => {
     const regex = /\s*(\d*)([o|b])\s*/g;
     const matches = row.matchAll(regex);
 
@@ -31,14 +30,16 @@ export const parsePatternLine = (line: string): Pattern => {
         const cell = match[2] === "o" ? Cell.ALIVE : Cell.DEAD;
         return Array(count).fill(cell);
       })
-      .forEach((cells, index) => {
-        const col = index % cells.length;
-        cells.forEach((cell, i) => {
-          pattern[rowIndex] = pattern[rowIndex] || {};
-          pattern[rowIndex][i] = cell;
-        });
-      });
-  });
+      .flat() as Cell[];
 
-  return pattern;
+    const rowTags = lineTags.reduce((acc: Record<number, Record<number, Cell>>, cell, index) => {
+      if (!acc[rowIndex]) {
+        acc[rowIndex] = {};
+      }
+      acc[rowIndex][index] = cell;
+      return acc;
+    }, {});
+
+    return { ...acc, ...rowTags };
+  }, {});
 };
