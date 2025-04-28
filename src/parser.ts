@@ -110,6 +110,7 @@ export const outputSimulatedPattern = (
   const header = `x = ${cols}, y = ${rows}`;
   const pattern = simulated.toString();
   const linesAfterPatternString = linesAfterPattern.join("\n");
-  const output = `${linesBeforeHeaderString}\n${header}\n${pattern}\n${linesAfterPatternString}`;
+  const linesToBeOutputted = [linesBeforeHeaderString, header, pattern, linesAfterPatternString].filter((line) => line.length > 0);
+  const output = linesToBeOutputted.join("\n");
   return output;
 };
