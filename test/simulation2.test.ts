@@ -153,15 +153,24 @@ describe("Game of Life Simulation", () => {
     const result = new Simulation(grid).nextGeneration();
   });
 
-
-  it('should return 1x1 bounding box for a single cell', () => {
+  it("should return 1x1 bounding box for a single cell", () => {
     const grid = {
-      0: { 0: Cell.ALIVE, },
+      0: { 0: Cell.ALIVE },
     };
-    
+
     const simulation = new Simulation(grid);
     const boundingBox = simulation.getBoundingBox(grid);
     expect(boundingBox).toEqual({ top: 0, bottom: 0, left: 0, right: 0 });
+  });
 
+  it("should return 2x2 bounding box for a block", () => {
+    const blockGrid = {
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+      1: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+    };
+
+    const simulation = new Simulation(blockGrid);
+    const boundingBox = simulation.getBoundingBox(blockGrid);
+    expect(boundingBox).toEqual({ top: 0, bottom: 1, left: 0, right: 1 });
   });
 });
