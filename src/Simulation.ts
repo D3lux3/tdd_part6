@@ -124,11 +124,15 @@ class Simulation {
 
     return `${Object.entries(shape)
       .map(([_rowIndex, row]) => {
-        const cells =  Object.entries(row)
+        const cells = Object.entries(row)
           .map(([_colIndex, cell]) => (cell === Cell.ALIVE ? "o" : "b"))
           .join("");
-
-        return this.compressLine(cells);
+        const compressed = this.compressLine(cells);
+        const slicedArray = [];
+        for (let i = 0; i < compressed.length; i += 69) {
+          slicedArray.push(compressed.slice(i, i + 69));
+        }
+        return slicedArray.join("$");
       })
       .join("$")}!`;
   }
