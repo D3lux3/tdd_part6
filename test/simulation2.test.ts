@@ -162,7 +162,7 @@ describe("Game of Life Simulation", () => {
     };
     
     const simulation = new Simulation(grid);
-    const boundingBox = simulation.getBoundingBox();
+    const boundingBox = simulation.getBoundingBox(grid);
     expect(boundingBox).toEqual({ top: 0, bottom: 0, left: 0, right: 0 });
 
   });
