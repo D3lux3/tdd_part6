@@ -196,4 +196,16 @@ describe("Game of Life Simulation", () => {
     const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(new Simulation(expectedGridState));
   });
+
+
+  it("should optimize the pattern output correctly 2x1", () => {
+    const grid = {
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE, 2: Cell.DEAD },
+    };
+
+    const sim = new Simulation(grid);
+    const expectedShapeString = `o2!`;
+    const result = sim.toString();
+    expect(result).toEqual(expectedShapeString);
+  });
 });
