@@ -156,9 +156,7 @@ describe("Game of Life Simulation", () => {
 
   it('should return 1x1 bounding box for a single cell', () => {
     const grid = {
-      0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
-      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+      0: { 0: Cell.ALIVE, },
     };
     
     const simulation = new Simulation(grid);

@@ -71,7 +71,7 @@ class Simulation {
     return new Simulation(newGrid);
   }
 
-  private getGridShape(grid: Pattern): { x: number; y: number } {
+  getBoundingBox(grid: Pattern) {
     const aliveCells = Object.entries(grid).reduce((acc: [number, number][], [rowIndex, row]) => {
       Object.entries(row).forEach(([colIndex, cell]) => {
         if (cell === Cell.ALIVE) {
@@ -81,19 +81,15 @@ class Simulation {
       return acc;
     }, []);
 
-    const minX = Math.min(...aliveCells.map(([x]) => x));
-    const maxX = Math.max(...aliveCells.map(([x]) => x));
-    const minY = Math.min(...aliveCells.map(([, y]) => y));
-    const maxY = Math.max(...aliveCells.map(([, y]) => y));
+    const rows = aliveCells.map(([x]) => x);
+    const cols = aliveCells.map(([, y]) => y);
 
-    if (aliveCells.length === 0) {
-      return { x: 0, y: 0 };
+    return {
+      top: Math.min(...rows),
+      bottom: Math.max(...rows),
+      left: Math.min(...cols),
+      right: Math.max(...cols),
     }
-    return { y: maxX - minX + 1, x: maxY - minY + 1 };
-  }
-
-  getPatternShape(): { x: number; y: number } {
-    return this.getGridShape(this.grid);
   }
 
   toString(): string {
