@@ -204,7 +204,7 @@ describe("Game of Life Simulation", () => {
     };
 
     const sim = new Simulation(grid);
-    const expectedShapeString = `o2!`;
+    const expectedShapeString = `2o!`;
     const result = sim.toString();
     expect(result).toEqual(expectedShapeString);
   });
