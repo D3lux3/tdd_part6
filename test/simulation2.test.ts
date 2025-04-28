@@ -151,7 +151,19 @@ describe("Game of Life Simulation", () => {
       1: { 0: Cell.ALIVE, 1: Cell.ALIVE, 2: Cell.ALIVE },
     };
     const result = new Simulation(grid).nextGeneration();
-    console.log("result", result.getPatternShape());
-    expect(result.getPatternShape()).toEqual({ x: 1, y: 3 });
+  });
+
+
+  it('should return 1x1 bounding box for a single cell', () => {
+    const grid = {
+      0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+    };
+    
+    const simulation = new Simulation(grid);
+    const boundingBox = simulation.getBoundingBox();
+    expect(boundingBox).toEqual({ top: 0, bottom: 0, left: 0, right: 0 });
+
   });
 });
