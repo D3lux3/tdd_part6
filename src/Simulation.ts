@@ -120,13 +120,32 @@ class Simulation {
   }
 
   toString(): string {
-    return `${Object.entries(this.grid)
+    const shape = this.extractShape(this.grid);
+
+    return `${Object.entries(shape)
       .map(([_rowIndex, row]) => {
-        return Object.entries(row)
+        const cells =  Object.entries(row)
           .map(([_colIndex, cell]) => (cell === Cell.ALIVE ? "o" : "b"))
           .join("");
+
+        return this.compressLine(cells);
       })
       .join("$")}!`;
+  }
+
+  compressLine(line: string): string {
+    const regex = /([ob])\1*/g;
+    const matches = line.match(regex);
+    if (!matches) {
+      return line;
+    }
+    return matches
+      .map((match) => {
+        const count = match.length;
+        const cell = match[0];
+        return count > 1 ? `${count}${cell}` : cell;
+      })
+      .join("");
   }
 }
 
