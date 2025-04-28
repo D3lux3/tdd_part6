@@ -2,13 +2,10 @@ import { Cell, Pattern } from "./types";
 
 class Simulation {
   grid: Pattern;
-  rows: number;
-  cols: number;
 
   constructor(grid: Pattern) {
     this.grid = grid;
-    this.rows = Object.keys(this.grid).length;
-    this.cols = this.grid[0] ? Object.keys(this.grid[0]).length : 0;
+
   }
 
   private getCell(row: number, col: number) {
@@ -59,10 +56,14 @@ class Simulation {
 
   nextGeneration(): Simulation {
     const newGrid: Pattern = {};
-    const padding = 1;
+    const boundingBox = this.getBoundingBox(this.grid);
 
-    for (let row = 0 - padding; row < this.rows + padding; row++) {
-      for (let col = 0 - padding; col < this.cols + padding; col++) {
+    const rows = boundingBox.bottom - boundingBox.top + 1;
+    const cols = boundingBox.right - boundingBox.left + 1;
+    const maxDimension = Math.max(rows, cols);
+
+    for (let row = - 1; row < maxDimension + 1; row++) {
+      for (let col = - 1; col < maxDimension + 1; col++) {
         const newCellState = this.computeNextCellState(row, col);
         if (!newGrid[row]) {
           newGrid[row] = {};
@@ -70,21 +71,25 @@ class Simulation {
         newGrid[row]![col] = newCellState;
       }
     }
+    const extractedShape = this.extractShape(newGrid);
+    return new Simulation(extractedShape);
+  }
 
-    const { top, bottom, left, right } = this.getBoundingBox(newGrid);
-    const newGrid2: Pattern = {};
+  private extractShape(grid: Pattern) {
+    const { top, bottom, left, right } = this.getBoundingBox(grid);
+    const extractedShape: Pattern = {};
 
     for (let row = top; row <= bottom; row++) {
       for (let col = left; col <= right; col++) {
-        const cell = newGrid[row]?.[col] ?? Cell.DEAD;
-  
-        if (!newGrid2[row - top]) {
-          newGrid2[row - top] = {};
+        const cell = grid[row]?.[col] ?? Cell.DEAD;
+
+        if (!extractedShape[row - top]) {
+          extractedShape[row - top] = {};
         }
-        newGrid2[row - top]![col - left] = cell;
+        extractedShape[row - top]![col - left] = cell;
       }
     }
-    return new Simulation(newGrid2);
+    return extractedShape;
   }
 
   getBoundingBox(grid: Pattern) {
@@ -105,7 +110,7 @@ class Simulation {
       bottom: Math.max(...rows),
       left: Math.min(...cols),
       right: Math.max(...cols),
-    }
+    };
   }
 
   toString(): string {
