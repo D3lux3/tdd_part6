@@ -2,13 +2,9 @@ import { Cell, Pattern } from "./types";
 
 class Simulation {
   grid: Pattern;
-  rows: number;
-  cols: number;
 
-  constructor(grid: Pattern, y: number, x: number) {
+  constructor(grid: Pattern) {
     this.grid = grid;
-    this.rows = y;
-    this.cols = x;
   }
 
   private getCell(row: number, col: number) {
@@ -59,8 +55,14 @@ class Simulation {
 
   nextGeneration(): Simulation {
     const newGrid: Pattern = {};
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
+    const boundingBox = this.getBoundingBox(this.grid);
+
+    const rows = boundingBox.bottom - boundingBox.top + 1;
+    const cols = boundingBox.right - boundingBox.left + 1;
+    const maxDimension = Math.max(rows, cols);
+
+    for (let row = -1; row < maxDimension + 1; row++) {
+      for (let col = -1; col < maxDimension + 1; col++) {
         const newCellState = this.computeNextCellState(row, col);
         if (!newGrid[row]) {
           newGrid[row] = {};
@@ -68,11 +70,28 @@ class Simulation {
         newGrid[row]![col] = newCellState;
       }
     }
-    const { x, y } = this.getGridShape(newGrid);
-    return new Simulation(newGrid, x, y);
+    const extractedShape = this.extractShape(newGrid);
+    return new Simulation(extractedShape);
   }
 
-  private getGridShape(grid: Pattern): { x: number; y: number } {
+  private extractShape(grid: Pattern) {
+    const { top, bottom, left, right } = this.getBoundingBox(grid);
+    const extractedShape: Pattern = {};
+
+    for (let row = top; row <= bottom; row++) {
+      for (let col = left; col <= right; col++) {
+        const cell = grid[row]?.[col] ?? Cell.DEAD;
+
+        if (!extractedShape[row - top]) {
+          extractedShape[row - top] = {};
+        }
+        extractedShape[row - top]![col - left] = cell;
+      }
+    }
+    return extractedShape;
+  }
+
+  getBoundingBox(grid: Pattern) {
     const aliveCells = Object.entries(grid).reduce((acc: [number, number][], [rowIndex, row]) => {
       Object.entries(row).forEach(([colIndex, cell]) => {
         if (cell === Cell.ALIVE) {
@@ -82,19 +101,22 @@ class Simulation {
       return acc;
     }, []);
 
-    const minX = Math.min(...aliveCells.map(([x]) => x));
-    const maxX = Math.max(...aliveCells.map(([x]) => x));
-    const minY = Math.min(...aliveCells.map(([, y]) => y));
-    const maxY = Math.max(...aliveCells.map(([, y]) => y));
+    const rows = aliveCells.map(([x]) => x);
+    const cols = aliveCells.map(([, y]) => y);
 
-    if (aliveCells.length === 0) {
-      return { x: 0, y: 0 };
-    }
-    return { y: maxX - minX + 1, x: maxY - minY + 1 };
+    return {
+      top: Math.min(...rows),
+      bottom: Math.max(...rows),
+      left: Math.min(...cols),
+      right: Math.max(...cols),
+    };
   }
 
-  getPatternShape(): { x: number; y: number } {
-    return this.getGridShape(this.grid);
+  getPatternShape() {
+    const boundingBox = this.getBoundingBox(this.grid);
+    const rows = boundingBox.bottom - boundingBox.top + 1;
+    const cols = boundingBox.right - boundingBox.left + 1;
+    return { rows, cols };
   }
 
   toString(): string {

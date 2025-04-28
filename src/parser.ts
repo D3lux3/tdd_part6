@@ -100,13 +100,16 @@ export const loadRLEFile = (filePath: string): LoadRLEResult => {
   }
 };
 
-
-export const outputSimulatedPattern = (simulated: Simulation, linesBeforeHeader: string[], linesAfterPattern: string[]) => {
+export const outputSimulatedPattern = (
+  simulated: Simulation,
+  linesBeforeHeader: string[],
+  linesAfterPattern: string[],
+) => {
   const linesBeforeHeaderString = linesBeforeHeader.join("\n");
-  const {x, y} = simulated.getPatternShape();
-  const header = `x = ${x}, y = ${y}`;
+  const { rows, cols } = simulated.getPatternShape();
+  const header = `x = ${rows}, y = ${cols}`;
   const pattern = simulated.toString();
   const linesAfterPatternString = linesAfterPattern.join("\n");
   const output = `${linesBeforeHeaderString}\n${header}\n${pattern}\n${linesAfterPatternString}`;
   return output;
-}
+};

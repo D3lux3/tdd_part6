@@ -18,7 +18,7 @@ describe("Game of Life Simulation", () => {
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
 
-    const result = new Simulation(grid, 3, 3).neighboursCount(1, 1);
+    const result = new Simulation(grid).neighboursCount(1, 1);
     expect(result).toEqual(0);
   });
 
@@ -29,14 +29,9 @@ describe("Game of Life Simulation", () => {
       2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
     };
 
-    const expectedGridState = {
-        0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-        1: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-        2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
-      };
-    const expectedSimulation = new Simulation(expectedGridState, 0, 0);
+    const expectedSimulation = new Simulation({});
 
-    const result = new Simulation(grid, 3, 3).nextGeneration();
+    const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
@@ -47,15 +42,14 @@ describe("Game of Life Simulation", () => {
     };
 
     const expectedGridState = {
-      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+      1: { 0: Cell.ALIVE, 1: Cell.ALIVE },
     };
 
-    const expectedSimulation = new Simulation(expectedGridState, 2, 2);
+    const expectedSimulation = new Simulation(expectedGridState);
 
     expect(expectedSimulation.computeNextCellState(1, 1)).toEqual(Cell.ALIVE);
-    const result = new Simulation(grid, 3, 3).nextGeneration();
+    const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
@@ -67,13 +61,12 @@ describe("Game of Life Simulation", () => {
     };
 
     const expectedGridState = {
-      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+      1: { 0: Cell.ALIVE, 1: Cell.ALIVE },
     };
-    const expectedSimulation = new Simulation(expectedGridState, 2, 2);
+    const expectedSimulation = new Simulation(expectedGridState);
 
-    const result = new Simulation(grid, 3, 3).nextGeneration();
+    const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
@@ -89,10 +82,10 @@ describe("Game of Life Simulation", () => {
       1: { 0: Cell.ALIVE, 1: Cell.DEAD, 2: Cell.DEAD },
       2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
     };
-    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+    const expectedSimulation = new Simulation(expectedGridState);
     expect(expectedSimulation.computeNextCellState(1, 1)).toEqual(Cell.DEAD);
     expect(expectedSimulation.computeNextCellState(1, 2)).toEqual(Cell.DEAD);
-    const result = new Simulation(grid, 3, 3).nextGeneration();
+    const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
@@ -108,9 +101,9 @@ describe("Game of Life Simulation", () => {
       1: { 0: Cell.ALIVE, 1: Cell.DEAD, 2: Cell.DEAD },
       2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
     };
-    const expectedSimulation = new Simulation(expectedGridState, 3, 3);
+    const expectedSimulation = new Simulation(expectedGridState);
 
-    const result = new Simulation(grid, 3, 3).nextGeneration();
+    const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
@@ -124,13 +117,13 @@ describe("Game of Life Simulation", () => {
       0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
       1: { 0: Cell.ALIVE, 1: Cell.ALIVE },
     };
-    const expectedSimulation = new Simulation(expectedGridState, 2, 2);
+    const expectedSimulation = new Simulation(expectedGridState);
 
-    const result = new Simulation(grid, 2, 2).nextGeneration();
+    const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
-  it('should simulate blinker pattern properly', () => {
+  it("should simulate blinker pattern properly", () => {
     const grid = {
       0: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
       1: { 0: Cell.ALIVE, 1: Cell.ALIVE, 2: Cell.ALIVE },
@@ -138,21 +131,69 @@ describe("Game of Life Simulation", () => {
     };
 
     const expectedGridState = {
-      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
-      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
-      2: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.DEAD },
+      0: { 0: Cell.ALIVE },
+      1: { 0: Cell.ALIVE },
+      2: { 0: Cell.ALIVE },
     };
-    const expectedSimulation = new Simulation(expectedGridState, 1, 3);
-    const result = new Simulation(grid, 3, 3).nextGeneration();
+    const expectedSimulation = new Simulation(expectedGridState);
+    const result = new Simulation(grid).nextGeneration();
     expect(result).toEqual(expectedSimulation);
   });
 
-  it.skip('should output the correct blinker pattern after 1 generation', () => {
+  it("should return 1x1 bounding box for a single cell", () => {
     const grid = {
-        1: { 0: Cell.ALIVE, 1: Cell.ALIVE, 2: Cell.ALIVE },
-      };
-      const result = new Simulation(grid, 3, 1).nextGeneration();
-      console.log('result', result.getPatternShape());
-      expect(result.getPatternShape()).toEqual({ x: 1, y: 3 });
+      0: { 0: Cell.ALIVE },
+    };
+
+    const simulation = new Simulation(grid);
+    const boundingBox = simulation.getBoundingBox(grid);
+    expect(boundingBox).toEqual({ top: 0, bottom: 0, left: 0, right: 0 });
+  });
+
+  it("should return 2x2 bounding box for a block", () => {
+    const blockGrid = {
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+      1: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+    };
+
+    const simulation = new Simulation(blockGrid);
+    const boundingBox = simulation.getBoundingBox(blockGrid);
+    expect(boundingBox).toEqual({ top: 0, bottom: 1, left: 0, right: 1 });
+  });
+
+  it("should return 2x1 bounding box", () => {
+    const grid = {
+      0: { 0: Cell.ALIVE },
+      1: { 0: Cell.ALIVE },
+    };
+
+    const simulation = new Simulation(grid);
+    const boundingBox = simulation.getBoundingBox(grid);
+    expect(boundingBox).toEqual({ top: 0, bottom: 1, left: 0, right: 0 });
+  });
+
+  it("should return 1x2 bounding box", () => {
+    const grid = {
+      0: { 0: Cell.ALIVE, 1: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.DEAD },
+    };
+
+    const simulation = new Simulation(grid);
+    const boundingBox = simulation.getBoundingBox(grid);
+    expect(boundingBox).toEqual({ top: 0, bottom: 0, left: 0, right: 1 });
+  });
+
+  it("should output the correct blinker pattern after 1 generation", () => {
+    const grid = {
+      1: { 0: Cell.ALIVE, 1: Cell.ALIVE, 2: Cell.ALIVE },
+    };
+    const expectedGridState = {
+      0: { 0: Cell.ALIVE },
+      1: { 0: Cell.ALIVE },
+      2: { 0: Cell.ALIVE },
+    };
+
+    const result = new Simulation(grid).nextGeneration();
+    expect(result).toEqual(new Simulation(expectedGridState));
   });
 });
