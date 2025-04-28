@@ -132,7 +132,7 @@ class Simulation {
         for (let i = 0; i < compressed.length; i += 69) {
           slicedArray.push(compressed.slice(i, i + 69));
         }
-        return slicedArray.join("$");
+        return slicedArray.filter((line) => line.length > 0).join("$");
       })
       .join("$")}!`;
   }
