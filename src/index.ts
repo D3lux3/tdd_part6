@@ -9,9 +9,9 @@ if (!filePath || !iterations) {
 }
 
 
-const { linesBeforeHeader, pattern, width, height, linesAfterPattern } = loadRLEFile(filePath);
+const { linesBeforeHeader, pattern, linesAfterPattern } = loadRLEFile(filePath);
 
-let simulation = new Simulation(pattern, height, width);
+let simulation = new Simulation(pattern);
 
 for (let i = 0; i < iterations; i++) {
     simulation = simulation.nextGeneration();
