@@ -59,8 +59,10 @@ class Simulation {
 
   nextGeneration(): Simulation {
     const newGrid: Pattern = {};
-    for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++) {
+    const padding = 1;
+
+    for (let row = 0 - padding; row < this.rows + padding; row++) {
+      for (let col = 0 - padding; col < this.cols + padding; col++) {
         const newCellState = this.computeNextCellState(row, col);
         if (!newGrid[row]) {
           newGrid[row] = {};
@@ -68,7 +70,21 @@ class Simulation {
         newGrid[row]![col] = newCellState;
       }
     }
-    return new Simulation(newGrid);
+
+    const { top, bottom, left, right } = this.getBoundingBox(newGrid);
+    const newGrid2: Pattern = {};
+
+    for (let row = top; row <= bottom; row++) {
+      for (let col = left; col <= right; col++) {
+        const cell = newGrid[row]?.[col] ?? Cell.DEAD;
+  
+        if (!newGrid2[row - top]) {
+          newGrid2[row - top] = {};
+        }
+        newGrid2[row - top]![col - left] = cell;
+      }
+    }
+    return new Simulation(newGrid2);
   }
 
   getBoundingBox(grid: Pattern) {
