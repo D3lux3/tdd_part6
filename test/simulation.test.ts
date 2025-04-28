@@ -208,4 +208,17 @@ describe("Game of Life Simulation", () => {
     const result = sim.toString();
     expect(result).toEqual(expectedShapeString);
   });
+
+  it("should optimize the pattern output correctly 3x3", () => {
+    const grid = {
+      0: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      1: { 0: Cell.DEAD, 1: Cell.ALIVE, 2: Cell.ALIVE },
+      2: { 0: Cell.DEAD, 1: Cell.DEAD, 2: Cell.DEAD },
+    };
+
+    const sim = new Simulation(grid);
+    const expectedShapeString = `2o$2o!`;
+    const result = sim.toString();
+    expect(result).toEqual(expectedShapeString);
+  });
 });
